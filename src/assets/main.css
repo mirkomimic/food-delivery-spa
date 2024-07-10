@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.p-app-dark {
+  /* add plugin in tailwind.config.js */
+  @apply bg-surface-950
+}
+
+html {
+  @apply bg-surface-50
+}
+
+
