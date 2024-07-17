@@ -10,14 +10,14 @@
       <div class="me-auto">
         ICON
       </div>
-      <Menubar :model="items" class="ms-auto">
+      <Menubar v-if="false" :model="items" class="ms-auto">
         <template #item="{ item, props, hasSubmenu }">
-          <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+          <RouterLink v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
             <a :href="href" v-bind="props.action" @click="navigate" :class="linkClass($route.path === item.route)" class="rounded-md">
               <!-- <span :class="item.icon" /> -->
               <span>{{ item.label }}</span>
             </a>
-          </router-link>
+          </RouterLink>
           <a v-else :href="item.url" :target="item.target" v-bind="props.action">
             <span :class="item.icon" />
             <span>{{ item.label }}</span>
@@ -25,6 +25,15 @@
           </a>
         </template>
       </Menubar>
+
+      <div v-if="!isLoggedIn" class="me-3 flex gap-3">
+        <RouterLink to="login">
+          <Button size="small" label="Login" outlined />
+        </RouterLink>
+        <RouterLink to="register">
+          <Button size="small" severity="contrast" label="Register" outlined />
+        </RouterLink>
+      </div>
 
       <Button
         @click="toggleTheme()"
@@ -34,19 +43,25 @@
         raised
       />
 
+      <UserMenu v-if="isLoggedIn" class="ms-3"/>
+
     </div>
   </nav>
 </template>
 
 <script setup>
 import { useMyTheme } from '@/composables/Theme';
+import { useAuthStore } from '@/store/auth';
 import { useStore } from '@/store/store';
 import Button from 'primevue/button';
 import Menubar from 'primevue/menubar';
 import { ref } from "vue";
+import UserMenu from './menus/UserMenu.vue';
 const store = useStore()
+const authStore = useAuthStore()
 
 const { toggleTheme } = useMyTheme()
+const { isLoggedIn } = useAuthStore()
 
 const linkClass = (isCurrentRoute) => {
   if (isCurrentRoute) {

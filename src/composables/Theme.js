@@ -9,7 +9,7 @@ export function useMyTheme() {
   const lightTheme = 'theme-light'
   const store = useStore()
 
-  function initialize() {
+  function initializeTheme() {
     if (store.theme === lightTheme) {
       html.classList.remove(darkThemeClass)
     } else {
@@ -27,10 +27,10 @@ export function useMyTheme() {
     }
   }
 
-  onMounted(() => {
-    initialize()
-  })
+  // onMounted(() => {
+  //   initialize()
+  // })
   
   
-  return { toggleTheme }
+  return { toggleTheme, initializeTheme }
 }

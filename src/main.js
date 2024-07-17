@@ -1,14 +1,9 @@
 import './assets/main.css'
-
-import axios from 'axios'
-
-axios.defaults.withCredentials = true;
-axios.defaults.withXSRFToken = true;
-axios.defaults.baseURL = 'http://localhost:8000'
+import './assets/custom.css'
+import './assets/js/axios'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
 
 import PrimeVue from 'primevue/config';
 import 'primeicons/primeicons.css'
@@ -16,10 +11,11 @@ import { MyPreset } from './assets/themePreset';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import router from './router'
 
 const app = createApp(App)
-const pinia = createPinia()
 
+const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 app.use(PrimeVue, {
@@ -31,7 +27,8 @@ app.use(PrimeVue, {
   }
 });
 
-app.use(router)
-  .use(ToastService)
+app
   .use(pinia)
+  .use(router)
+  .use(ToastService)
   .mount('#app')
