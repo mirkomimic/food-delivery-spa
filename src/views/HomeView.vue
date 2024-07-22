@@ -6,22 +6,26 @@ import MainLayout from '@/layouts/MainLayout.vue';
 import { useStore } from '@/store/store';
 import { onMounted } from 'vue';
 import axios from 'axios';
+import router from '@/router';
 
 const toast = useToast();
 const store = useStore()
 
 const show = () => {
-  toast.add({
-    severity: 'success',
-    summary: 'Info',
-    detail: 'Message Content',
-    life: 3000
-  });
+  // toast.add({
+  //   severity: 'success',
+  //   summary: 'Info',
+  //   detail: 'Message Content',
+  //   life: 3000
+  // });
+  testRequest()
+  // router.push({name: 'restaurant.dashboard'})
 };
 
 const testRequest = async () => {
   try {
     const response = await axios.get('api/test');
+    console.log(response);
   } catch (error) {
     console.error(error);
   }

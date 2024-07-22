@@ -14,16 +14,8 @@ const couriersStore = useCouriersAuthStore()
 onMounted(() => {
   initializeTheme();
 
-  // if (authStore.isLoggedIn) {
-  //   console.log('user logged in');
-  //   authStore.getUser()
-  // } else if (restaurantsStore.isLoggedIn) {
-  //   console.log('restaurant logged in');
-  //   restaurantsStore.getUser()
-  // } else {
-  //   console.log('courier logged in');
-  //   couriersStore.getUser()
-  // }
+  // restaurantsStore.authRestaurant = null
+
 })
 </script>
 

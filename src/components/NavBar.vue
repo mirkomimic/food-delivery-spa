@@ -35,13 +35,7 @@
         </RouterLink>
       </div>
 
-      <Button
-        @click="toggleTheme()"
-        :icon="store.theme == 'theme-dark' ? 'pi pi-moon' : 'pi pi-sun'"
-        size="small"
-        severity="secondary"
-        raised
-      />
+      <ToggleTheme/>
 
       <UserMenu v-if="isLoggedIn" class="ms-3"/>
 
@@ -50,17 +44,15 @@
 </template>
 
 <script setup>
-import { useMyTheme } from '@/composables/Theme';
 import { useAuthStore } from '@/store/auth';
 import { useStore } from '@/store/store';
 import Button from 'primevue/button';
 import Menubar from 'primevue/menubar';
 import { ref } from "vue";
 import UserMenu from './menus/UserMenu.vue';
+import ToggleTheme from './buttons/ToggleTheme.vue';
 const store = useStore()
-const authStore = useAuthStore()
 
-const { toggleTheme } = useMyTheme()
 const { isLoggedIn } = useAuthStore()
 
 const linkClass = (isCurrentRoute) => {

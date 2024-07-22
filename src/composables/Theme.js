@@ -1,5 +1,4 @@
 import { useStore } from "@/store/store"
-import { onMounted } from "vue"
 
 export function useMyTheme() {
 

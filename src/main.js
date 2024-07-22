@@ -9,6 +9,7 @@ import PrimeVue from 'primevue/config';
 import 'primeicons/primeicons.css'
 import { MyPreset } from './assets/themePreset';
 import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import router from './router'
@@ -31,4 +32,5 @@ app
   .use(pinia)
   .use(router)
   .use(ToastService)
+  .use(ConfirmationService)
   .mount('#app')

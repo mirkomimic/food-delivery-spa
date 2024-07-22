@@ -30,7 +30,13 @@ const router = createRouter({
     {
       path: '/restaurant/dashboard',
       name: 'restaurant.dashboard',
-      component: () => import('../views/dashboards/Restaurants.vue'),
+      component: () => import('../views/dashboards/restaurants/Index.vue'),
+      beforeEnter: authRestaurant
+    },
+    {
+      path: '/restaurant/dashboard/products',
+      name: 'restaurant.dashboard.products',
+      component: () => import('../views/dashboards/restaurants/Products.vue'),
       beforeEnter: authRestaurant
     },
     {
@@ -42,7 +48,7 @@ const router = createRouter({
     {
       path: '/courier/dashboard',
       name: 'courier.dashboard',
-      component: () => import('../views/dashboards/Couriers.vue'),
+      component: () => import('../views/dashboards/couriers/Index.vue'),
       beforeEnter: authCourier
     },
   ]

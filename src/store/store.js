@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useStore = defineStore('store', () => {
   const theme = ref('theme-dark')
 
-  return { theme }
+  const sheet = computed(() => {
+    return theme.value == 'theme-dark' ? 'bg-surface-900' : 'bg-surface-200'
+  })
+
+  return { theme, sheet }
 },
 {
   persist: true 

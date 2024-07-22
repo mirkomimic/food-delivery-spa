@@ -40,7 +40,21 @@ export const useRestaurantsAuthStore = defineStore('restaurantsAuthStore', () =>
     return response
   }
 
-  return { authRestaurant, getToken, getUser, handleLogin, handleLogout, isLoggedIn }
+  const getProducts = async () => {
+    const response = await axios.get('api/dashboard/restaurant/products')
+    return response;      
+  }
+
+  const createProduct = async (form) => {
+    const response = await axios.post('api/dashboard/restaurant/products', form, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    return response;
+  }
+
+  return { authRestaurant, getToken, getUser, handleLogin, handleLogout, isLoggedIn, getProducts, createProduct }
 },
 {
   persist: true 
