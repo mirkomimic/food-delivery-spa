@@ -6,7 +6,7 @@
       'bg-surface-50': store.theme === 'theme-light',
     }"
   >
-    <div class="container mx-auto h-20 grid grid-cols-3">
+    <div class="container mx-auto h-14 grid grid-cols-3">
       <div class="col-span-1"></div>
       <div class="col-span-1 flex items-center justify-center">
         <h3 class="text-center text-2xl">{{ props.title }}</h3>

@@ -2,7 +2,7 @@
   <Dialog 
     v-model:visible="visible" 
     modal 
-    header="Add New Product" 
+    header="Edit Product" 
     class="w-full md:w-[30rem]"
     :closable="false"
   >
@@ -24,7 +24,7 @@
           class="mt-4"
         />
 
-        <InputImage
+        <InputEditImage
           @setImage="(e) => form.image = e"
           :serverErrors="serverError"
           :errors="errors"
@@ -43,7 +43,7 @@
         <Button
           type="submit"
           class="flex-auto"
-          label="Save"
+          label="Update"
           :loading="loading"
           :disabled="loading"
         />
@@ -57,12 +57,12 @@
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import InputCurrency from '../inputs/InputCurrency.vue';
-import { inject, ref } from 'vue';
+import { inject, ref, watch } from 'vue';
 import { useRestaurantsAuthStore } from '@/store/authRestaurants';
 import InputName from '../inputs/InputName.vue';
 import { useForm, configure } from 'vee-validate';
 import * as yup from 'yup';
-import InputImage from '../inputs/InputImage.vue';
+import InputEditImage from '../inputs/InputEditImage.vue';
 
 const restaurantStore = useRestaurantsAuthStore()
 const visible = defineModel('visible')
@@ -70,6 +70,7 @@ const serverError = ref(null)
 const loading = ref(false)
 
 const getProducts = inject('getProducts')
+const selectedProduct = inject('selectedProduct')
 
 configure({
   validateOnMount: false,
@@ -78,11 +79,15 @@ configure({
   validateOnModelUpdate: true,
 });
 
-const { errors, handleSubmit, defineField, meta, resetForm } = useForm({
+const { errors, handleSubmit, defineField, meta, resetForm, setValues } = useForm({
   validationSchema: yup.object({
     name: yup.string().required('The name field is required'),
     price: yup.number().required('The price field is required'),
   }),
+  initialValues: {
+    name: selectedProduct.value?.name,
+    price: selectedProduct.value?.price,
+  },
 });
 
 const [name] = defineField('name');
@@ -91,6 +96,24 @@ const [price] = defineField('price');
 const submit = handleSubmit(async (values) => {
   save()
 });
+
+watch(() => selectedProduct.value, (newProduct) => {
+  setValues({
+    name: newProduct?.name,
+    price: newProduct?.price
+  });
+  form.value.name = name
+  form.value.price = price
+})
+
+watch(() => visible.value, () => {
+  setValues({
+    name: selectedProduct.value.name,
+    price: selectedProduct.value.price
+  });
+  form.value.name = name
+  form.value.price = price
+})
 
 const form = ref({
   name: name,
@@ -105,8 +128,9 @@ const close = () => {
 
 const save = async () => { 
   try {
+    console.log(form.value);
     loading.value = true
-    const response = await restaurantStore.createProduct(form.value)
+    const response = await restaurantStore.updateProduct(form, selectedProduct.value.id)
     if (response) {
       setTimeout(() => {
         getProducts()

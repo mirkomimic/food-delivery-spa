@@ -7,9 +7,11 @@ import { useStore } from '@/store/store';
 import { onMounted } from 'vue';
 import axios from 'axios';
 import router from '@/router';
+import { useAuthStore } from '@/store/auth';
 
 const toast = useToast();
 const store = useStore()
+const userStore = useAuthStore()
 
 const show = () => {
   // toast.add({
@@ -34,6 +36,11 @@ const testRequest = async () => {
 onMounted(() => {
   testRequest()
 })
+// console.log(userStore.authUser.id);
+window.Echo.private(`App.Models.User.${userStore.authUser?.id}`).notification((notification) => {
+  console.log(notification.message);
+})
+
 </script>
 
 <template>

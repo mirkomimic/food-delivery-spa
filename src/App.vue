@@ -13,9 +13,6 @@ const couriersStore = useCouriersAuthStore()
 
 onMounted(() => {
   initializeTheme();
-
-  // restaurantsStore.authRestaurant = null
-
 })
 </script>
 

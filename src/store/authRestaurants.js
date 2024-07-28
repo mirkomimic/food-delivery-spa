@@ -40,21 +40,38 @@ export const useRestaurantsAuthStore = defineStore('restaurantsAuthStore', () =>
     return response
   }
 
+  ////////////////////////////// end auth
+
   const getProducts = async () => {
     const response = await axios.get('api/dashboard/restaurant/products')
     return response;      
   }
 
   const createProduct = async (form) => {
-    const response = await axios.post('api/dashboard/restaurant/products', form, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    const settings = { headers: {'Content-Type': 'multipart/form-data'} }
+    const response = await axios.post('api/dashboard/restaurant/products', form, settings)
     return response;
   }
 
-  return { authRestaurant, getToken, getUser, handleLogin, handleLogout, isLoggedIn, getProducts, createProduct }
+  const deleteProduct = async (product_id) => {
+    const response = await axios.delete(`api/dashboard/restaurant/products/${product_id}`)
+    return response;
+  }
+
+  const updateProduct = async (form, product_id) => {
+    let data = new FormData();
+    data.append( 'name', form.value.name );
+    data.append( 'price', form.value.price );
+    data.append( 'image', form.value.image );
+    data.append('_method', 'put');
+    
+    const settings = { headers: {'Content-Type': 'multipart/form-data'}, method: 'put' }
+
+    const response = await axios.post(`api/dashboard/restaurant/products/${product_id}`, data, { settings })
+    return response;
+  }
+
+  return { authRestaurant, getToken, getUser, handleLogin, handleLogout, isLoggedIn, getProducts, createProduct, deleteProduct, updateProduct }
 },
 {
   persist: true 

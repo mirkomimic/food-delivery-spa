@@ -4,7 +4,6 @@ import { useRestaurantsAuthStore } from '@/store/authRestaurants';
 import { useCouriersAuthStore } from '@/store/authCouriers';
 import router from '@/router';
 
-
 const logoutOnError = () => {
   const authStore = useAuthStore()
   const restaurantsStore = useRestaurantsAuthStore()
@@ -35,7 +34,6 @@ axios.interceptors.response.use(function (response) {
 
 axios.defaults.withXSRFToken = true;
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:8000'
-
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 

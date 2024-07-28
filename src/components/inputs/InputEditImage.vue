@@ -22,8 +22,11 @@
     </div>
 
     <div class="my-5 p-2 mx-auto h-[250px] w-[250px] border rounded-md flex justify-center items-center">
-      <i v-if="!imagePreview" class="pi pi-image" style="font-size: 2.5rem"></i>
-      <Image v-if="imagePreview" :src="imagePreview" width="250"/>
+      <i v-if="!imagePreview && !selectedProduct.image" class="pi pi-image" style="font-size: 2.5rem"></i>
+
+      <Image v-if="selectedProduct.image && !imagePreview" :src="`${apiUrl}/storage/images/products/${selectedProduct.image}`"/>
+
+      <Image v-if="imagePreview && !selectedProduct.image" :src="imagePreview" width="250"/>
     </div>
 
   </div>
@@ -32,12 +35,14 @@
 <script setup>
 import FileUpload from 'primevue/fileupload';
 import Image from 'primevue/image';
-import { defineProps, ref } from 'vue';
+import { defineProps, inject, ref } from 'vue';
 
+const apiUrl = import.meta.env.VITE_API_URL
 const image = ref()
 const props = defineProps(['serverErrors', 'errors'])
 const emits = defineEmits(['setImage'])
 const imagePreview = ref(null)
+const selectedProduct = inject('selectedProduct')
 
 const setImage = () => {
   emits('setImage', image.value.files[0])

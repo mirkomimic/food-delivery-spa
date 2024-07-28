@@ -1,6 +1,7 @@
 import './assets/main.css'
 import './assets/custom.css'
 import './assets/js/axios'
+import './assets/js/echo'
 
 import { createApp } from 'vue'
 import App from './App.vue'
