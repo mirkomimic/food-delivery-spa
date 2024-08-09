@@ -51,6 +51,12 @@ const router = createRouter({
       component: () => import('../views/dashboards/couriers/Index.vue'),
       beforeEnter: authCourier
     },
+    {
+      path: '/restaurant/:id/products',
+      name: 'restaurant.products',
+      component: () => import('../views/shop/RestaurantProducts.vue'),
+      props: true,
+    },
   ]
 })
 

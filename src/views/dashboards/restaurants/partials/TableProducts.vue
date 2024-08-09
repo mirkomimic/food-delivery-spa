@@ -44,12 +44,16 @@
             <DeleteProductConfirm v-model="selectedProduct"/>
           </div>
 
-          <div class="flex gap-3">
-            <IconField>
-              <InputIcon class="pi pi-search"></InputIcon>
-              <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
-            </IconField>
-            <Button icon="pi pi-filter-slash" label="Clear" size="small" outlined @click="clearFilter()" />
+          <div class="flex items-center gap-3">
+            <div>
+              <IconField>
+                <InputIcon class="pi pi-search"></InputIcon>
+                <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
+              </IconField>
+            </div>
+            <div>
+              <Button icon="pi pi-filter-slash" label="Clear" size="small" outlined @click="clearFilter()" />
+            </div>
           </div>
         </div>
       </template>

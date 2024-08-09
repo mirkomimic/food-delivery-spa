@@ -128,7 +128,6 @@ const close = () => {
 
 const save = async () => { 
   try {
-    console.log(form.value);
     loading.value = true
     const response = await restaurantStore.updateProduct(form, selectedProduct.value.id)
     if (response) {
