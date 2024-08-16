@@ -16,5 +16,10 @@ export function useShop() {
     return response;
   }
 
-  return { getRestaurants, getRestaurantProducts };
+  const storeOrder = async (cart) => {
+    const response = await axios.post('api/orders', {products: cart});
+    return response;
+  }
+
+  return { getRestaurants, getRestaurantProducts, storeOrder };
 }

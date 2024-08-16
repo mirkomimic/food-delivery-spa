@@ -35,9 +35,17 @@
         </RouterLink>
       </div>
 
-      <ToggleTheme/>
+      <div class="flex gap-4 items-center">
+        <ToggleTheme/>
 
-      <UserMenu v-if="isLoggedIn" class="ms-3"/>
+        <RouterLink :to="{name: 'shopping-cart'}">
+          <OverlayBadge :value="String(store.qtyInCartCount())" size="small" class="self-end">
+            <i class="pi pi-shopping-bag" style="font-size: 1.6rem" />
+          </OverlayBadge>
+        </RouterLink>
+
+        <UserMenu v-if="isLoggedIn"/>
+      </div>
 
     </div>
   </nav>
@@ -51,6 +59,8 @@ import Menubar from 'primevue/menubar';
 import { ref } from "vue";
 import UserMenu from './menus/UserMenu.vue';
 import ToggleTheme from './buttons/ToggleTheme.vue';
+import OverlayBadge from 'primevue/overlaybadge'
+
 const store = useStore()
 
 const { isLoggedIn } = useAuthStore()

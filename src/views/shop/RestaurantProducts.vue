@@ -2,6 +2,7 @@
   <MainLayout>
     
     <main class="container min-h-screen mx-auto">
+
       <div class="mt-10 grid grid-cols-3 gap-4 min-h-[500px]">
         <div v-if="products?.length" v-for="product in products" :key="product.id">
           <ProductCard :product="product"/>
@@ -25,12 +26,15 @@ import { onMounted, ref, watch } from 'vue';
 import { useShop } from '@/composables/Shop';
 import ProductCard from '@/components/cards/ProductCard.vue';
 import Paginator from 'primevue/paginator';
+import Button from 'primevue/button';
+import { useStore } from '@/store/store';
 
 const props = defineProps({
   id: String
 })
 
 const shop = useShop()
+const store = useStore()
 const products = ref()
 
 const totalProducts = ref()

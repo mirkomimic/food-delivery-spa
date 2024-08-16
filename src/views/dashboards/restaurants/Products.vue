@@ -43,7 +43,7 @@ onMounted(async () => {
 })
 
 window.Echo.private(`App.Models.Restaurant.${restaurantStore.authRestaurant.id}`).notification((notification) => {
-
+  console.log(notification);
   setTimeout(() => {
     toast.add({
       severity: 'success',
