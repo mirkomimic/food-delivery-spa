@@ -3,6 +3,7 @@ import Echo from 'laravel-echo';
  
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
+const apiUrl = import.meta.env.VITE_API_URL
  
 window.Echo = new Echo({
   broadcaster: 'reverb',
@@ -13,11 +14,11 @@ window.Echo = new Echo({
   forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
   enabledTransports: ['ws', 'wss'],
 
-  authEndpoint: `${import.meta.env.VITE_API_URL}/api/broadcasting/auth`,
+  authEndpoint: `${apiUrl}/api/broadcasting/auth`,
   authorizer: (channel, options) => {
     return {
         authorize: (socketId, callback) => {
-            axios.post('http://localhost:8000/api/broadcasting/auth', {
+            axios.post(`${apiUrl}/api/broadcasting/auth`, {
                 socket_id: socketId,
                 channel_name: channel.name
             })

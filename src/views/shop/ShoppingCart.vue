@@ -3,44 +3,47 @@
     <Toast />
 
     <main class="container min-h-screen mx-auto">
-      <DataTable :value="store.cart" class="mt-5 min-w-full">
-        <Column field="id" header="ID"></Column>
-        <Column field="name" header="NAME"></Column>
-        <Column field="image" header="">
-          <template #body="slotProps">
-            <img :src="`${apiUrl}/storage/images/products/${slotProps.data.image}`" :alt="slotProps.data.image" class="rounded" style="width: 64px" />
+      <div v-if="store.cart.length">
+        <DataTable :value="store.cart" class="mt-5 min-w-full">
+          <Column field="id" header="ID"></Column>
+          <Column field="name" header="NAME"></Column>
+          <Column field="image" header="">
+            <template #body="slotProps">
+              <img :src="`${apiUrl}/storage/images/products/${slotProps.data.image}`" :alt="slotProps.data.image" class="rounded" style="width: 64px" />
+            </template>
+          </Column>
+          <Column field="price" header="PRICE"></Column>
+          <Column field="qty" header="QUANTITY"></Column>
+          <Column header="TOTAL">
+            <template #body="slotProps">
+              {{ slotProps.data.price * slotProps.data.qty }}
+            </template>
+          </Column>
+          <template #footer>
+            <div class="grid grid-cols-6">
+              <div class="col-span-4"></div>
+              <div class="text-center">Grand Total:</div>
+              <div class="text-center">{{ store.getCartGrandTotal() }}</div>
+            </div>
           </template>
-        </Column>
-        <Column field="price" header="PRICE"></Column>
-        <Column field="qty" header="QUANTITY"></Column>
-        <Column header="TOTAL">
-          <template #body="slotProps">
-            {{ slotProps.data.price * slotProps.data.qty }}
-          </template>
-        </Column>
-        <template #footer>
-          <div class="grid grid-cols-6">
-            <div class="col-span-4"></div>
-            <div class="text-center">Grand Total:</div>
-            <div class="text-center">{{ store.getCartGrandTotal() }}</div>
-          </div>
-        </template>
-      </DataTable>
-
-      <div class="flex gap-4 mt-4">
-        <Button 
-          @click="store.resetCart()" 
-          text 
-          severity="secondary"
-          >Reset Cart
-        </Button>
-
-        <Button 
-          @click="storeOrder()" 
-          :loading="loading"
-          label="Order"
-        />
+        </DataTable>
+        <div class="flex gap-4 mt-4">
+          <Button
+            @click="store.resetCart()"
+            text
+            severity="secondary"
+            >Reset Cart
+          </Button>
+          <Button
+            @click="storeOrder()"
+            :loading="loading"
+            label="Order"
+          />
+        </div>
       </div>
+
+      <div v-else class="mt-5">Cart is empty</div>
+
     </main>
   </MainLayout>
 </template>
@@ -84,9 +87,6 @@ const storeOrder = async () => {
 }
 
 window.Echo.private(`App.Models.User.${authStore.authUser?.id}`).notification((notification) => {
-
-  console.log(notification);
-
   setTimeout(() => {
     toast.add({
       severity: 'success',
@@ -95,6 +95,10 @@ window.Echo.private(`App.Models.User.${authStore.authUser?.id}`).notification((n
       life: 5000
     });    
   }, 2000);
+
+  setTimeout(() => {
+    router.push({name: 'home'})
+  }, 7000);
 })
 
 </script>

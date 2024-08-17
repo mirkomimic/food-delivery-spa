@@ -1,6 +1,6 @@
 <template>
   <NavBar title="Restaurant - Dashboard"/>
-  <Toast />
+  <!-- <Toast /> -->
   
   <main class="container min-h-screen mx-auto lg:grid lg:grid-cols-12">
     <div class="lg:col-span-3">

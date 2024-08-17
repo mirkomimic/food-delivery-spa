@@ -4,12 +4,7 @@ import Paginator from 'primevue/paginator';
 import { onMounted, ref, watch } from 'vue';
 import { useShop } from '@/composables/Shop';
 import SelectButton from 'primevue/selectbutton';
-import { useAuthStore } from '@/store/auth';
-import Toast from 'primevue/toast';
-import { useToast } from 'primevue/usetoast'
 
-const toast = useToast();
-const authStore = useAuthStore()
 const shop = useShop()
 const restaurants = ref()
 const categories = ref()
@@ -47,24 +42,11 @@ watch(form.value, () => {
   getRestaurants();
 })
 
-window.Echo.private(`App.Models.User.${authStore.authUser?.id}`).notification((notification) => {
-  console.log(notification);
-  setTimeout(() => {
-    toast.add({
-      severity: 'success',
-      summary: 'Success message',
-      detail: notification.message,
-      life: 5000
-    });    
-  }, 2000);
-})
-
 
 </script>
 
 <template>
   <MainLayout>
-    <Toast />
     
     <main class="container min-h-screen mx-auto">
 
