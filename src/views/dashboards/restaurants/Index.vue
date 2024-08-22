@@ -6,13 +6,49 @@
       <SideNav/>
     </div>
     <div class="col-span-12 lg:col-span-9">
-
+      <div class="p-5">
+        <OrdersDailyChart 
+          v-if="last7DaysOrderCount" 
+          :last7DaysOrderCount="last7DaysOrderCount"
+        />
+      </div>
+      <div class="p-5">
+        <OrdersMonthlyTotalChart 
+          v-if="ordersTotalMonthly"
+          :ordersTotalMonthly="ordersTotalMonthly"
+        />
+      </div>
     </div>
   </main>
 </template>
 
 <script setup>
+import OrdersDailyChart from '@/components/charts/OrdersDailyChart.vue';
 import NavBar from '../NavBar.vue';
 import SideNav from './partials/SideNav.vue';
+import { useRestaurantHomeStatistics } from '@/composables/statistics/RestaurantHomeStatistics';
+import { onMounted, ref } from 'vue';
+import OrdersMonthlyTotalChart from '@/components/charts/OrdersMonthlyTotalChart.vue';
+
+const restaurantHomeStats = useRestaurantHomeStatistics()
+const last7DaysOrderCount = ref()
+const ordersTotalMonthly = ref()
+
+const getOrdersByRestDaily = async () => {
+  try {
+    const response = await restaurantHomeStats.last7DaysOrderCount()
+    if (response) {
+      console.log(response);
+      last7DaysOrderCount.value = response.data.last7DaysOrderCount
+      ordersTotalMonthly.value = response.data.ordersTotalMonthly
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+onMounted(() => {
+  getOrdersByRestDaily()
+})
 
 </script>
