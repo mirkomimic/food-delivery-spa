@@ -50,7 +50,7 @@ const data = ref({
 })
 
 const options = {
-  // responsive: true,
+  responsive: true,
   // maintainAspectRatio: false,
   plugins: {
     title: {

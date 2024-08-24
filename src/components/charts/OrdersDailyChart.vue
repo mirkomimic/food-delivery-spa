@@ -21,19 +21,21 @@ const props = defineProps({
 
 const data = ref({
   labels: computed(() => { 
-    return props.last7DaysOrderCount.map((d) => d.formatted_date)
+    const data = props.last7DaysOrderCount.map((d) => d.formatted_date)
+    return data.reverse();
   }),
   datasets: [{
     label: 'Order count',
     data: computed(() => { 
-      return props.last7DaysOrderCount.map((d) => d.order_count)
+      const data = props.last7DaysOrderCount.map((d) => d.order_count)
+      return data.reverse();
     }),
     backgroundColor: '#183240',
   }]
 })
 
 const options = {
-  // responsive: true,
+  responsive: true,
   // maintainAspectRatio: false,
   plugins: {
     title: {

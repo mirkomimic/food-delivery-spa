@@ -6,17 +6,19 @@
       <SideNav/>
     </div>
     <div class="col-span-12 lg:col-span-9">
-      <div class="p-5">
-        <OrdersDailyChart 
-          v-if="last7DaysOrderCount" 
-          :last7DaysOrderCount="last7DaysOrderCount"
-        />
-      </div>
-      <div class="p-5">
-        <OrdersMonthlyTotalChart 
-          v-if="ordersTotalMonthly"
-          :ordersTotalMonthly="ordersTotalMonthly"
-        />
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="py-5 px-3 flex justify-center">
+          <OrdersDailyChart
+            v-if="last7DaysOrderCount"
+            :last7DaysOrderCount="last7DaysOrderCount"
+          />
+        </div>
+        <div class="py-5 px-3 flex justify-center">
+          <OrdersMonthlyTotalChart
+            v-if="ordersTotalMonthly"
+            :ordersTotalMonthly="ordersTotalMonthly"
+          />
+        </div>
       </div>
     </div>
   </main>
